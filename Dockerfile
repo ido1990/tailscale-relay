@@ -20,9 +20,12 @@ ENV LOGINSERVER=https://controlplane.tailscale.com
 
 RUN apk add --no-cache iptables
 
+RUN apk add --no-cache tini
+# Tini is now available at /sbin/tini
+
 COPY --from=builder /build/tailscale /usr/bin/
 COPY --from=builder /build/tailscaled /usr/bin/
 
 COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/bin/sh", "/entrypoint.sh"]
