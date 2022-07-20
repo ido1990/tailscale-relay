@@ -14,7 +14,7 @@ RUN VER=$(lastversion https://github.com/tailscale/tailscale) \
     mv "tailscale_${VER}_${ARCH}/tailscale" .
 
 
-FROM alpine:3
+FROM alpine:latest
 
 ENV LOGINSERVER=https://controlplane.tailscale.com
 
